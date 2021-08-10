@@ -1,2 +1,1 @@
-
-console.log(10e-10)
+console.log(("" === 0));
