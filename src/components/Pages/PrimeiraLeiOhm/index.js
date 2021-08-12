@@ -191,7 +191,7 @@ function PrimeiraLeiOhm(props) {
           onPress={handleLeftButton}
         >
           <Image
-            source={require("../../assets/arrow_Right.png")}
+            source={require("../../../../assets/arrow_Right.png")}
             style={{ width: 40, height: 40, rotation: 180, marginLeft: -12 }}
           />
         </IdxButton>
@@ -199,7 +199,7 @@ function PrimeiraLeiOhm(props) {
           onPress={handleRightButton}
         >
           <Image
-            source={require("../../assets/arrow_Right.png")}
+            source={require("../../../../assets/arrow_Right.png")}
             style={{ width: 40, height: 40, marginLeft: 12 }}
           />
         </IdxButton>
