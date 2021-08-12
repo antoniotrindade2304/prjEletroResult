@@ -25,7 +25,7 @@ export default function Home() {
 
             <ScreenButton onPress = {handlePressButtonPot}> 
                 <Image 
-                    source = {require("../../../../assets/1LeiOhm.png")}
+                    source = {require("../../../../assets/Pot.png")}
                     style = {{width: 110, height: 100}}
                 />
                 <ButtonText>Potencia</ButtonText>

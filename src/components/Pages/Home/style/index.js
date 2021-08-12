@@ -24,10 +24,14 @@ export const ScreenButtonArea = styled.View`
 `
 
 export const ScreenButton = styled.TouchableOpacity`
-    width: 110px;
-    height: 100px;
-    margin: 40px;
-    background-color: white;
+    width: 140px;
+    height: 140px;
+    margin: 30px;
+    background-color: #111;
+    border: ${props => props.active ? "2px solid white" : "none"};
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
 `
 
 export const ButtonText = styled.Text`
