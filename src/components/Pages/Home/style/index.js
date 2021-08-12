@@ -27,6 +27,7 @@ export const ScreenButton = styled.TouchableOpacity`
     width: 110px;
     height: 100px;
     margin: 40px;
+    background-color: white;
 `
 
 export const ButtonText = styled.Text`

@@ -8,6 +8,9 @@ export default function Home() {
     const handlePressButton1Lei = () => {
         navigation.navigate("PrimeiraLeiOhm");
     }
+    const handlePressButtonPot = () => {
+        navigation.navigate("Potencia");
+    }
  return (
    <Page>
        <HeaderText>Eletro Result</HeaderText>
@@ -19,7 +22,15 @@ export default function Home() {
                 />
                 <ButtonText>1º Lei de Ohm</ButtonText>
             </ScreenButton>
-            <ScreenButton />
+
+            <ScreenButton onPress = {handlePressButtonPot}> 
+                <Image 
+                    source = {require("../../../../assets/1LeiOhm.png")}
+                    style = {{width: 110, height: 100}}
+                />
+                <ButtonText>Potencia</ButtonText>
+            </ScreenButton>
+            
             <ScreenButton />
             <ScreenButton />
             <ScreenButton />

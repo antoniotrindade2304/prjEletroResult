@@ -11,15 +11,16 @@ function Potencia(props) {
   const [result, setResult] = useState(0.00);
   const [prefixo1, setPrefixo1] = useState(1);
   const [prefixo2, setPrefixo2] = useState(1);
-  const [unidade1, setUnidade1] = useState("Ω");
+  const [unidade1, setUnidade1] = useState("V");
   const [unidade2, setUnidade2] = useState("A");
-  const [unidadeP, setUnidadeP] = useState("V");
+  const [unidadeP, setUnidadeP] = useState("W");
   const [active1, setActive1] = useState(true);
   const [active2, setActive2] = useState(false);
   const [active3, setActive3] = useState(false);
-  const [placeholder1, setPlaceholder1] = useState("Resistência")
-  const [placeholder2, setPlaceholder2] = useState("Corrente")
+  const [placeholder1, setPlaceholder1] = useState("Tensão");
+  const [placeholder2, setPlaceholder2] = useState("Corrente");
   const [prefixos, setPrefixos] = useState(["T", "G", "M", "K", "", "m", "μ", "n", "p"]);
+  const [casaDecimais, setCasasDecimais] = useState(0);
 
 
   const handlePressButton1 = () => {
@@ -28,10 +29,10 @@ function Potencia(props) {
       setActive2(false);
       setActive3(false);
     }
-    setUnidade1("Ω");
+    setUnidade1("V");
     setUnidade2("A");
-    setUnidadeP("V");
-    setPlaceholder1("Resistência");
+    setUnidadeP("W");
+    setPlaceholder1("Tensão");
     setPlaceholder2("Corrente");
   }
 
@@ -41,10 +42,10 @@ function Potencia(props) {
       setActive2(true);
       setActive3(false);
     }
-    setUnidade1("V");
+    setUnidade1("W");
     setUnidade2("A");
-    setUnidadeP("Ω");
-    setPlaceholder1("Tensão");
+    setUnidadeP("V");
+    setPlaceholder1("Potência");
     setPlaceholder2("Corrente");
   }
 
@@ -54,22 +55,32 @@ function Potencia(props) {
       setActive2(false);
       setActive3(true);
     }
-    setUnidade1("V");
-    setUnidade2("Ω");
+    setUnidade1("W");
+    setUnidade2("V");
     setUnidadeP("A");
-    setPlaceholder1("Tensão");
-    setPlaceholder2("Resistência");
+    setPlaceholder1("Potência");
+    setPlaceholder2("Tensão");
   }
 
   const handleLeftButton = () => {
     if (count > 0) {
       setCount(count - 1);
+      if(Number.isInteger(result/1000)) {
+        setCasasDecimais(0);
+      }else {
+        setCasasDecimais(3);
+      }
       setResult(result / 1000);
     }
   }
 
   const handleRightButton = () => {
     if (count < 8) {
+      if(Number.isInteger(result*1000)) {
+        setCasasDecimais(0);
+      }else {
+        setCasasDecimais(3);
+      }
       setCount(count + 1);
       setResult(result * 1000);
     }
@@ -80,18 +91,35 @@ function Potencia(props) {
     if (number1 !== "" && number2 !== "") {
       if (( number1 == 0 && number2 == 0) || (number2 == 0)) {
         setResult(0);
+        setCasasDecimais(0);
       } else if (active1) {
-          setResult(number1 * number2 * (prefixo1 * prefixo2));
+          if(Number.isInteger((number1 * number2) * (prefixo1 * prefixo2))) {
+            setCasasDecimais(0);
+          }else {
+            setCasasDecimais(3);
+          }
+          setResult((number1 * number2) * (prefixo1 * prefixo2));
           setCount(4);
         } else if (active2) {
+          if(Number.isInteger((number1 / number2) * (prefixo1 / prefixo2))) {
+            setCasasDecimais(0);
+          }else {
+            setCasasDecimais(3);
+          }
           setResult((number1 / number2) * (prefixo1 / prefixo2));
           setCount(4);
         } else if (active3) {
+          if(Number.isInteger((number1 / number2) * (prefixo1 / prefixo2))) {
+            setCasasDecimais(0);
+          }else {
+            setCasasDecimais(3);
+          }
           setResult((number1 / number2) * (prefixo1 / prefixo2));
           setCount(4);
         }
     } else {
       setResult(0);
+      setCasasDecimais(0);
     }
     
   }, [number1, number2, active1, active2, active3, prefixo1, prefixo2])
@@ -100,19 +128,19 @@ function Potencia(props) {
 
   return (
     <Page>
-      <HeaderText>1º Lei de Ohm Ω</HeaderText>
+      <HeaderText>Potência</HeaderText>
       <ButtonArea>
         <OperationButton
           active={active1}
           onPress={handlePressButton1}
         >
-          <OperationButtonText>V</OperationButtonText>
+          <OperationButtonText>W</OperationButtonText>
         </OperationButton>
         <OperationButton style={{ marginLeft: 20, marginRight: 20 }}
           active={active2}
           onPress={handlePressButton2}
         >
-          <OperationButtonText>R</OperationButtonText>
+          <OperationButtonText>V</OperationButtonText>
         </OperationButton>
         <OperationButton
           active={active3}
@@ -183,7 +211,7 @@ function Potencia(props) {
         <UnitText>{unidade2}</UnitText>
       </InputArea>
       <ResultArea>
-        <ResultAreaText>{result}{prefixos[count]}{unidadeP}</ResultAreaText>
+        <ResultAreaText>{result.toFixed(casaDecimais)}{prefixos[count]}{unidadeP}</ResultAreaText>
       </ResultArea>
 
       <ButtonArea>
@@ -191,7 +219,7 @@ function Potencia(props) {
           onPress={handleLeftButton}
         >
           <Image
-            source={require("../../assets/arrow_Right.png")}
+            source={require("../../../../assets/arrow_Right.png")}
             style={{ width: 40, height: 40, rotation: 180, marginLeft: -12 }}
           />
         </IdxButton>
@@ -199,7 +227,7 @@ function Potencia(props) {
           onPress={handleRightButton}
         >
           <Image
-            source={require("../../assets/arrow_Right.png")}
+            source={require("../../../../assets/arrow_Right.png")}
             style={{ width: 40, height: 40, marginLeft: 12 }}
           />
         </IdxButton>

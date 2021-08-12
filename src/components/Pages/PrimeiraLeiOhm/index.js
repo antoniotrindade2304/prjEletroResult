@@ -20,6 +20,7 @@ function PrimeiraLeiOhm(props) {
   const [placeholder1, setPlaceholder1] = useState("Resistência")
   const [placeholder2, setPlaceholder2] = useState("Corrente")
   const [prefixos, setPrefixos] = useState(["T", "G", "M", "K", "", "m", "μ", "n", "p"]);
+  const [casaDecimais, setCasasDecimais] = useState(0);
 
 
   const handlePressButton1 = () => {
@@ -63,6 +64,11 @@ function PrimeiraLeiOhm(props) {
 
   const handleLeftButton = () => {
     if (count > 0) {
+      if(Number.isInteger(result/1000)) {
+        setCasasDecimais(0);
+      }else {
+        setCasasDecimais(3);
+      }
       setCount(count - 1);
       setResult(result / 1000);
     }
@@ -70,6 +76,11 @@ function PrimeiraLeiOhm(props) {
 
   const handleRightButton = () => {
     if (count < 8) {
+      if(Number.isInteger(result*1000)) {
+        setCasasDecimais(0);
+      }else {
+        setCasasDecimais(3);
+      }
       setCount(count + 1);
       setResult(result * 1000);
     }
@@ -80,18 +91,35 @@ function PrimeiraLeiOhm(props) {
     if (number1 !== "" && number2 !== "") {
       if (( number1 == 0 && number2 == 0) || (number2 == 0)) {
         setResult(0);
+        setCasasDecimais(0);
       } else if (active1) {
-          setResult(number1 * number2 * (prefixo1 * prefixo2));
+          if(Number.isInteger((number1 * number2) * (prefixo1 * prefixo2))) {
+            setCasasDecimais(0);
+          }else {
+            setCasasDecimais(3);
+          }
+          setResult((number1 * number2) * (prefixo1 * prefixo2));
           setCount(4);
         } else if (active2) {
+          if(Number.isInteger((number1 / number2) * (prefixo1 / prefixo2))) {
+            setCasasDecimais(0);
+          }else {
+            setCasasDecimais(3);
+          }
           setResult((number1 / number2) * (prefixo1 / prefixo2));
           setCount(4);
         } else if (active3) {
+          if(Number.isInteger((number1 / number2) * (prefixo1 / prefixo2))) {
+            setCasasDecimais(0);
+          }else {
+            setCasasDecimais(3);
+          }
           setResult((number1 / number2) * (prefixo1 / prefixo2));
           setCount(4);
         }
     } else {
       setResult(0);
+      setCasasDecimais(0);
     }
     
   }, [number1, number2, active1, active2, active3, prefixo1, prefixo2])
@@ -100,7 +128,7 @@ function PrimeiraLeiOhm(props) {
 
   return (
     <Page>
-      <HeaderText>1º Lei de Ohm Ω</HeaderText>
+      <HeaderText>1º Lei de Ohm</HeaderText>
       <ButtonArea>
         <OperationButton
           active={active1}
@@ -183,7 +211,7 @@ function PrimeiraLeiOhm(props) {
         <UnitText>{unidade2}</UnitText>
       </InputArea>
       <ResultArea>
-        <ResultAreaText>{result}{prefixos[count]}{unidadeP}</ResultAreaText>
+        <ResultAreaText>{result.toFixed(casaDecimais)}{prefixos[count]}{unidadeP}</ResultAreaText>
       </ResultArea>
 
       <ButtonArea>
