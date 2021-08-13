@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 function App(){
   return(
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator >
         <Stack.Screen 
           name = "Home"
           component = {Home}
@@ -22,10 +22,16 @@ function App(){
         <Stack.Screen 
           name = "PrimeiraLeiOhm"
           component = {PrimeiraLeiOhm}
+          options = {{
+            headerShown: false
+          }}
         />
         <Stack.Screen
           name = "Potencia"
           component = {Potencia}
+          options = {{
+            headerShown: false
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

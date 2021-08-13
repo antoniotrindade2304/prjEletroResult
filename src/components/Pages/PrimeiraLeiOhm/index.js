@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Page, HeaderText, ButtonArea, OperationButton, OperationButtonText, IdxButton, InputNumber, PickerArea, InputArea, UnitText, ResultArea, ResultAreaText } from "./style";
+import { Page, HeaderArea, HeaderButton, HeaderText, ButtonArea, OperationButton, OperationButtonText, IdxButton, InputNumber, PickerArea, InputArea, UnitText, ResultArea, ResultAreaText } from "./style";
 import { Picker, Image } from "react-native";
+import { useNavigation } from '@react-navigation/core';
 
 console.disableYellowBox = true;
 
@@ -21,6 +22,7 @@ function PrimeiraLeiOhm(props) {
   const [placeholder2, setPlaceholder2] = useState("Corrente")
   const [prefixos, setPrefixos] = useState(["T", "G", "M", "K", "", "m", "μ", "n", "p"]);
   const [casaDecimais, setCasasDecimais] = useState(0);
+  const navigation = useNavigation();
 
 
   const handlePressButton1 = () => {
@@ -86,6 +88,10 @@ function PrimeiraLeiOhm(props) {
     }
   }
 
+  const homeReturn = () => {
+    navigation.goBack();
+  }
+
   useEffect(() => {
 
     if (number1 !== "" && number2 !== "") {
@@ -128,7 +134,18 @@ function PrimeiraLeiOhm(props) {
 
   return (
     <Page>
-      <HeaderText>1º Lei de Ohm</HeaderText>
+      <HeaderArea>
+        <HeaderButton
+          onPress={homeReturn}
+        >
+          <Image
+            source={require("../../../../assets/arrow_Right.png")}
+            style={{ width: 40, height: 40, rotation: 180, marginLeft: -16 }}
+          />
+        </HeaderButton>
+        <HeaderText>1º Lei de Ohm</HeaderText>
+      </HeaderArea>
+      
       <ButtonArea>
         <OperationButton
           active={active1}

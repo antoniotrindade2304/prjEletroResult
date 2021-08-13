@@ -6,11 +6,30 @@ export const Page = styled.SafeAreaView`
   background-color: #222;
   align-items: center;
 `
+export const HeaderArea = styled.View`
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-start;
+`
+export const HeaderButton = styled.TouchableOpacity`
+  width: 70px;
+  height: 70px;
+  background-color: #333;
+  justify-content: center;
+  align-items: center;
+  border-radius: 35px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: -80px;
+`
+
 export const HeaderText = styled.Text`
   font-size: 30px;
   color: white;
   font-weight: bold;
   margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
 `
 
 export const ButtonArea = styled.View`

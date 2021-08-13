@@ -37,4 +37,5 @@ export const ScreenButton = styled.TouchableOpacity`
 export const ButtonText = styled.Text`
     color: white;
     font-size: 20px;
+    font-weight: bold;
 `
